@@ -10,6 +10,6 @@ before_install:
   - tar -xzvf julia-0.3.2-linux-x86_64.tar.gz
   - /home/travis/build/codles/APES.jl/julia-8227746b95/bin/julia -e 'Pkg.clone("https://github.com/codles/APES.jl.git")'
   - /home/travis/build/codles/APES.jl/julia-8227746b95/bin/julia -e 'Pkg.update()'       # Required for Tk to work
-  - /home/travis/build/codles/APES.jl/julia-8227746b95/bin/julia -e 'Pkg.build("APES")'  # Required for Tk to work
+  # - /home/travis/build/codles/APES.jl/julia-8227746b95/bin/julia -e 'Pkg.build("APES")'  # Required for Tk to work
 script:
   - /home/travis/build/codles/APES.jl/julia-8227746b95/bin/julia -e 'Pkg.test("APES")'
