@@ -1,3 +1,8 @@
+using APES
+using Base.Test
+
+println("Testing apes function")
+
 # Test signal properties
 
 ## Li & Stoica fig1
