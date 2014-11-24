@@ -4,6 +4,10 @@ APES
 
 Amplitude and Phase Estimation of a Sinusoid
 
+## Documentation
+
+> http://codles.github.io/APES.jl/
+
 ## Installation
 
 ```julia
