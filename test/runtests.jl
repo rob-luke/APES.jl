@@ -10,9 +10,9 @@ include("APES-speed.jl")
 # Check code
 lintpkg( "APES" )
 
-checkreturntypes(APES)
-println()
-checklooptypes(APES)
-println()
-checkmethodcalls(APES)
+# checkreturntypes(APES)
+# println()
+# checklooptypes(APES)
+# println()
+# checkmethodcalls(APES)
 
