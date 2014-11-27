@@ -1,3 +1,6 @@
+using APES
+using Base.Test
+
 #
 # Test signal
 #
