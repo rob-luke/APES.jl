@@ -1,12 +1,13 @@
 APES
 ====
-[![Build Status](https://travis-ci.org/codles/APES.svg)](https://travis-ci.org/codles/APES)
+[![Build Status](https://travis-ci.org/codles/APES.jl.svg?branch=master)](https://travis-ci.org/codles/APES.jl)
 
 Amplitude and Phase Estimation of a Sinusoid
 
 ## Documentation
 
-> http://codles.github.io/APES.jl/
+Function [documentation](http://codles.github.io/APES.jl/)
+
 
 ## Installation
 
