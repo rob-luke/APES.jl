@@ -20,7 +20,7 @@ J. Li and P. Stoica. An adaptive filtering approach to spectral estimation and s
 [1] Y. Hua, A. Gershman, and Q. Cheng. High-resolution and robust signal processing. Signal Processing and Communications. CRC Press, October 2003.
 
 """ ->
-function apes{T <: FloatingPoint}(y::Array{T}, f::Union(Array{T}, T); M::Int=int(length(y)/2))
+function apes{T <: FloatingPoint}(y::Array{T}, f::Union(AbstractArray{T}, T); M::Int=int(length(y)/2), Q::Union(Array{T, 2}, Nothing)=nothing)
 
     N = length(y)
     L = N - M + 1  # (eqn 3)
@@ -46,26 +46,30 @@ function apes{T <: FloatingPoint}(y::Array{T}, f::Union(Array{T}, T); M::Int=int
     for i in 1:length(f)
 
         ω = 2 * pi * f[i]
-
-        a_m = exp(-im * ω .* [0:1:M-1])
-        a_l = exp(-im * ω .* [0:1:L-1])
-        a_m = convert(Array{Complex{Float64}, 2}, a_m')'  # The double transpose is due to convert
-        a_l = convert(Array{Complex{Float64}, 2}, a_l')'  # failing otherwise. TODO Fix this
-
-        # Normalised Fourier transforms of forward and backward data vectors
-        g_f = (1/L) * y_f * conj(a_l)  # eqn 4.3.11 [1]
-        g_b = (1/L) * y_b * conj(a_l)
-        G   = (1/sqrt(2)) * [g_f g_b]  # eqn 32
-
-        # Estimate of noise covariance matrix
-        Q  = R - G * ctranspose(G)  # eqn 31
-        Qi = inv(Q)
-
-        # Complex amplitude of sinusoid signal with frequency ω (eqn 25)
-        α[i] = (2 * (a_m' * Qi * g_f) / (a_m' * Qi * a_m))[1]
+        α[i] = apes(ω, M, L, y_f, y_b, R, Q)
     end
 
     return α
+end
+
+function apes{T <: FloatingPoint}(ω::T, M::Int, L::Int, y_f::Array{T, 2}, y_b::Array{T, 2}, R::Array{T, 2}, Q::Union(Nothing, Array{T, 2}))
+
+    a_m = exp(-im * ω .* [0:1:M-1])
+    a_l = exp(-im * ω .* [0:1:L-1])
+
+    # Normalised Fourier transforms of forward and backward data vectors
+    g_f = (1/L) * y_f * conj(a_l)  # eqn 4.3.11 [1]
+    g_b = (1/L) * y_b * conj(a_l)
+    G   = (1/sqrt(2)) * [g_f g_b]  # eqn 32
+
+    # Estimate of noise covariance matrix
+    if Q == nothing
+        Q  = R - G * ctranspose(G)  # eqn 31
+    end
+    Qi = inv(Q)
+
+    # Complex amplitude of sinusoid signal with frequency ω (eqn 34)
+    (2 * (a_m' * Qi * g_f) / (a_m' * Qi * a_m))[1]
 end
 
 end
