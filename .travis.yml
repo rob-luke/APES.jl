@@ -13,3 +13,4 @@ before_install:
   # - /home/travis/build/codles/APES.jl/julia-8227746b95/bin/julia -e 'Pkg.build("APES")'  # Required for Tk to work
 script:
   - /home/travis/build/codles/APES.jl/julia-8227746b95/bin/julia -e 'Pkg.test("APES")'
+
