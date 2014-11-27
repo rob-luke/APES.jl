@@ -1,3 +1,5 @@
+Using APES
+
 ## Li & Stoica fig1
 spectral_lines_f = [0.04, 0.05, 0.08, 0.09,    0.16:0.005:0.35]
 spectral_lines_p = vec(repmat([pi/4], length(spectral_lines_f)))
